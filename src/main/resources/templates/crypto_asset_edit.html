@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${edit ? 'Edit Crypto Asset' : 'Create New Crypto Asset'}"></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-indigo-600 px-6 py-4">
+                    <h3 class="text-xl font-semibold text-white" 
+                        th:text="${edit ? 'Edit Crypto Asset' : 'Create New Crypto Asset'}"></h3>
+                </div>
+
+                <div class="p-6">
+                    <form method="post" th:action="@{/crypto-assets/save}" th:object="${cryptoAsset}">
+                        <input type="hidden" th:field="*{id}" />
+
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" th:field="*{name}" id="name"
+                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'border-red-500'" />
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="mt-1 text-sm text-red-600"></p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="symbol" class="block text-sm font-medium text-gray-700 mb-2">Symbol</label>
+                            <input type="text" th:field="*{symbol}" id="symbol"
+                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                   th:classappend="${#fields.hasErrors('symbol')} ? 'border-red-500'" />
+                            <p th:if="${#fields.hasErrors('symbol')}" th:errors="*{symbol}"
+                               class="mt-1 text-sm text-red-600"></p>
+                        </div>
+
+                        <div class="flex gap-4 justify-end">
+                            <button type="submit" 
+                                    class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+                                Save
+                            </button>
+                            <a href="/crypto-assets" 
+                               class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Assets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-white">Crypto Assets</h3>
+                    <a href="/crypto-assets/create" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
+                        Add New Asset
+                    </a>
+                </div>
+
+                <!-- Search Form -->
+                <div class="p-4 border-b">
+                    <form action="/crypto-assets/search" method="get" class="flex gap-2">
+                        <input type="text" name="query" placeholder="Search by name..." 
+                               class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                            Search
+                        </button>
+                    </form>
+                </div>
+
+                <div class="p-6">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left pb-4 font-medium">#</th>
+                                <th class="text-left pb-4 font-medium">Name</th>
+                                <th class="text-left pb-4 font-medium">Symbol</th>
+                                <th class="text-left pb-4 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="asset, iter: ${cryptoAssets}" class="border-b hover:bg-gray-50">
+                                <td class="py-4" th:text="${iter.index + 1}"></td>
+                                <td class="py-4" th:text="${asset.name}"></td>
+                                <td class="py-4" th:text="${asset.symbol}"></td>
+                                <td class="py-4">
+                                    <div class="flex gap-2">
+                                        <a th:href="${'/crypto-assets/detail/' + asset.id}" 
+                                           class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                                            View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${#lists.isEmpty(cryptoAssets)}" class="text-center py-8 text-gray-500">
+                        No crypto assets available
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
