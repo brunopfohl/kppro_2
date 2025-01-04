@@ -39,8 +39,8 @@ public class IndexController {
         model.addAttribute("profitLoss", portfolioEntryService.calculateTotalProfitLoss());
         model.addAttribute("change24h", portfolioEntryService.calculate24HourChange());
         
-        // Get 30-day portfolio history
-        Map<LocalDateTime, BigDecimal> portfolioHistory = portfolioEntryService.getPortfolioValueHistory(30);
+        // Get complete portfolio history starting from the first price record
+        Map<LocalDateTime, BigDecimal> portfolioHistory = portfolioEntryService.getFullPortfolioHistory();
         model.addAttribute("portfolioHistory", portfolioHistory);
         
         // Asset distribution

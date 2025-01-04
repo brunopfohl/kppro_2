@@ -15,4 +15,5 @@ public interface PriceHistoryService {
     BigDecimal getLatestPrice(CryptoAsset cryptoAsset);
     BigDecimal getPriceAt(CryptoAsset cryptoAsset, LocalDateTime timestamp);
     List<PriceHistory> getPriceHistoryForPeriod(CryptoAsset cryptoAsset, LocalDateTime start, LocalDateTime end);
+    LocalDateTime getEarliestPriceDate(CryptoAsset cryptoAsset);
 }

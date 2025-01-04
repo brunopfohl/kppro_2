@@ -94,22 +94,22 @@
     <script th:inline="javascript">
         // Get portfolio history data from Thymeleaf
         const portfolioHistory = /*[[${portfolioHistory}]]*/ {};
-        
-        // Convert portfolio history to chart data
-        const dates = Object.keys(portfolioHistory).map(date => {
-            const d = new Date(date);
-            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
-        const values = Object.values(portfolioHistory);
 
-        // Portfolio Value Chart
-        new Chart(document.getElementById('portfolioChart'), {
+        // Initialize chart with all historical data
+        const portfolioChart = new Chart(document.getElementById('portfolioChart'), {
             type: 'line',
             data: {
-                labels: dates,
+                labels: Object.keys(portfolioHistory).map(date => {
+                    const d = new Date(date);
+                    return d.toLocaleDateString('en-US', { 
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                }),
                 datasets: [{
                     label: 'Portfolio Value (USD)',
-                    data: values,
+                    data: Object.values(portfolioHistory),
                     borderColor: 'rgb(79, 70, 229)',
                     tension: 0.1
                 }]
@@ -119,6 +119,16 @@
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.raw.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                            }
+                        }
                     }
                 },
                 scales: {
@@ -134,6 +144,7 @@
             }
         });
 
+        // Rest of the scripts...
         // Asset Distribution Chart
         const distribution = /*[[${assetDistribution}]]*/ {};
         new Chart(document.getElementById('distributionChart'), {

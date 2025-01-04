@@ -131,4 +131,29 @@ public class PortfolioEntryServiceImpl implements PortfolioEntryService {
         
         return history;
     }
+
+    @Override
+    public Map<LocalDateTime, BigDecimal> getFullPortfolioHistory() {
+        Map<LocalDateTime, BigDecimal> history = new TreeMap<>();
+        
+        // Find the earliest price record date
+        LocalDateTime startDate = getAllPortfolioEntries().stream()
+            .map(entry -> priceHistoryService.getEarliestPriceDate(entry.getCryptoAsset()))
+            .min(LocalDateTime::compareTo)
+            .orElse(LocalDateTime.now().minusYears(1));
+            
+        LocalDateTime endDate = LocalDateTime.now();
+        
+        // Get daily snapshots from the earliest date to now
+        for (LocalDateTime date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+            BigDecimal totalValue = BigDecimal.ZERO;
+            for (PortfolioEntry entry : getAllPortfolioEntries()) {
+                BigDecimal priceAtDate = priceHistoryService.getPriceAt(entry.getCryptoAsset(), date);
+                totalValue = totalValue.add(priceAtDate.multiply(entry.getQuantity()));
+            }
+            history.put(date, totalValue);
+        }
+        
+        return history;
+    }
 }

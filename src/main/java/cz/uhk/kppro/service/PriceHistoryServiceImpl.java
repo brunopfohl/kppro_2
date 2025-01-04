@@ -84,4 +84,16 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
     public List<PriceHistory> getPriceHistoryForPeriod(CryptoAsset cryptoAsset, LocalDateTime start, LocalDateTime end) {
         return priceHistoryRepository.findByCryptoAssetAndTimestampBetween(cryptoAsset, start, end);
     }
+
+    @Override
+    public LocalDateTime getEarliestPriceDate(CryptoAsset cryptoAsset) {
+        List<PriceHistory> prices = priceHistoryRepository.findByCryptoAssetOrderByTimestampDesc(cryptoAsset);
+        if (prices.isEmpty()) {
+            return LocalDateTime.now(); // Return current time if no prices found
+        }
+        return prices.stream()
+                .map(PriceHistory::getTimestamp)
+                .min(LocalDateTime::compareTo)
+                .orElse(LocalDateTime.now());
+    }
 }

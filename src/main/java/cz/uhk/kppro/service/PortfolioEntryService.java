@@ -19,4 +19,5 @@ public interface PortfolioEntryService {
     Map<String, BigDecimal> calculateAssetDistribution();
     BigDecimal calculate24HourChange();
     Map<LocalDateTime, BigDecimal> getPortfolioValueHistory(int numberOfDays);
+    Map<LocalDateTime, BigDecimal> getFullPortfolioHistory();
 }
