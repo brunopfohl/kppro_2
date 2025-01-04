@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/price-history")
 public class PriceHistoryController {
@@ -41,7 +43,9 @@ public class PriceHistoryController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("priceHistory", new PriceHistory());
+        PriceHistory priceHistory = new PriceHistory();
+        priceHistory.setTimestamp(LocalDateTime.now());  // Set current timestamp by default
+        model.addAttribute("priceHistory", priceHistory);
         model.addAttribute("cryptoAssets", cryptoAssetService.getAllCryptoAssets());
         model.addAttribute("edit", false);
         return "price-history/edit";
@@ -66,6 +70,7 @@ public class PriceHistoryController {
             model.addAttribute("edit", priceHistory.getId() != null);
             return "price-history/edit";
         }
+        
         priceHistoryService.savePriceHistory(priceHistory);
         return "redirect:/price-history";
     }

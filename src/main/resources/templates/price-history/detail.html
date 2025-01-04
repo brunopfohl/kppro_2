@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price History Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-white">Price History Detail</h3>
+                    <a href="/price-history" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
+                        Back to List
+                    </a>
+                </div>
+
+                <div class="p-6">
+                    <dl class="grid grid-cols-2 gap-4">
+                        <dt class="font-semibold">Date:</dt>
+                        <dd th:text="${#temporals.format(priceHistory.timestamp, 'yyyy-MM-dd HH:mm')}"></dd>
+
+                        <dt class="font-semibold">Asset:</dt>
+                        <dd>
+                            <span th:text="${priceHistory.cryptoAsset.name}"></span>
+                            <span class="text-gray-500" th:text="${'(' + priceHistory.cryptoAsset.symbol + ')'}"></span>
+                        </dd>
+
+                        <dt class="font-semibold">Price:</dt>
+                        <dd th:text="${'$' + #numbers.formatDecimal(priceHistory.priceUSD, 1, 2)}"></dd>
+                    </dl>
+
+                    <div class="mt-8 flex gap-4 justify-end">
+                        <a th:href="${'/price-history/edit/' + priceHistory.id}" 
+                           class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                            Edit
+                        </a>
+                        <a th:href="${'/price-history/delete/' + priceHistory.id}" 
+                           onclick="return confirm('Are you sure you want to delete this price history entry?');"
+                           class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

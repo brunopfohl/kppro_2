@@ -1,6 +1,8 @@
 package cz.uhk.kppro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -11,11 +13,16 @@ public class PriceHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Crypto asset must be selected")
     @ManyToOne
     @JoinColumn(name = "crypto_asset_id", nullable = false)
     private CryptoAsset cryptoAsset;
 
+    @NotNull(message = "Timestamp is required")
     private LocalDateTime timestamp;
+
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", message = "Price must be positive")
     private BigDecimal priceUSD;
 
     // Getters and Setters

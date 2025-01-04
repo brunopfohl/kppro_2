@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-white">Price History</h3>
+                    <a href="/price-history/create" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
+                        Add New Price Entry
+                    </a>
+                </div>
+
+                <div class="p-6">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left pb-4 font-medium">#</th>
+                                <th class="text-left pb-4 font-medium">Date</th>
+                                <th class="text-left pb-4 font-medium">Asset</th>
+                                <th class="text-right pb-4 font-medium">Price (USD)</th>
+                                <th class="text-left pb-4 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="price, iter: ${priceHistory}" class="border-b hover:bg-gray-50">
+                                <td class="py-4" th:text="${iter.index + 1}"></td>
+                                <td class="py-4" th:text="${#temporals.format(price.timestamp, 'yyyy-MM-dd HH:mm')}"></td>
+                                <td class="py-4">
+                                    <span th:text="${price.cryptoAsset.name}"></span>
+                                    <span class="text-gray-500 text-sm" th:text="${'(' + price.cryptoAsset.symbol + ')'}"></span>
+                                </td>
+                                <td class="py-4 text-right" th:text="${'$' + #numbers.formatDecimal(price.priceUSD, 1, 2)}"></td>
+                                <td class="py-4">
+                                    <div class="flex gap-2">
+                                        <a th:href="${'/price-history/detail/' + price.id}" 
+                                           class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                                            View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${#lists.isEmpty(priceHistory)}" class="text-center py-8 text-gray-500">
+                        No price history available
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
