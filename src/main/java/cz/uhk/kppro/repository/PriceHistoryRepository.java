@@ -11,4 +11,8 @@ public interface PriceHistoryRepository extends JpaRepository<PriceHistory, Inte
     List<PriceHistory> findByCryptoAsset(CryptoAsset cryptoAsset);
     List<PriceHistory> findByCryptoAssetOrderByTimestampDesc(CryptoAsset cryptoAsset);
     List<PriceHistory> findByCryptoAssetAndTimestampBetween(CryptoAsset cryptoAsset, LocalDateTime start, LocalDateTime end);
+    List<PriceHistory> findFirstByCryptoAssetAndTimestampBeforeOrderByTimestampDesc(
+        CryptoAsset cryptoAsset, 
+        LocalDateTime timestamp
+    );
 }

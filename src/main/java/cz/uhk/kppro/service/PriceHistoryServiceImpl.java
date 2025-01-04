@@ -56,28 +56,17 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
 
     @Override
     public BigDecimal getPriceAt(CryptoAsset cryptoAsset, LocalDateTime timestamp) {
-        // Find prices within a 5-minute window of the requested timestamp
-        LocalDateTime start = timestamp.minusMinutes(5);
-        LocalDateTime end = timestamp.plusMinutes(5);
-        
-        List<PriceHistory> prices = priceHistoryRepository.findByCryptoAssetAndTimestampBetween(
-            cryptoAsset, start, end);
+        // Find the latest price recorded before the requested timestamp
+        List<PriceHistory> prices = priceHistoryRepository
+            .findFirstByCryptoAssetAndTimestampBeforeOrderByTimestampDesc(cryptoAsset, timestamp);
         
         if (prices.isEmpty()) {
-            // If no price found in the window, get the closest earlier price
+            // If no earlier price found, try to get the earliest available price
             prices = priceHistoryRepository.findByCryptoAssetOrderByTimestampDesc(cryptoAsset);
-            return prices.isEmpty() ? BigDecimal.ZERO : prices.get(0).getPriceUSD();
+            return prices.isEmpty() ? BigDecimal.ZERO : prices.get(prices.size() - 1).getPriceUSD();
         }
         
-        // Return the price closest to the requested timestamp
-        return prices.stream()
-            .min((p1, p2) -> {
-                long diff1 = Math.abs(p1.getTimestamp().toEpochSecond(ZoneOffset.UTC) - timestamp.toEpochSecond(ZoneOffset.UTC));
-                long diff2 = Math.abs(p2.getTimestamp().toEpochSecond(ZoneOffset.UTC) - timestamp.toEpochSecond(ZoneOffset.UTC));
-                return Long.compare(diff1, diff2);
-            })
-            .map(PriceHistory::getPriceUSD)
-            .orElse(BigDecimal.ZERO);
+        return prices.get(0).getPriceUSD();
     }
 
     @Override

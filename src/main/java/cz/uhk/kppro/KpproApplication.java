@@ -52,70 +52,72 @@ public class KpproApplication {
             CryptoAsset eth = addCryptoAsset("Ethereum", "ETH");
             CryptoAsset sol = addCryptoAsset("Solana", "SOL");
 
-            // Seed price history
-            addPriceHistory(btc, "2021-01-01", new BigDecimal("29374.15"));
-            addPriceHistory(btc, "2022-01-01", new BigDecimal("47686.81"));
-            addPriceHistory(btc, "2023-01-01", new BigDecimal("16547.50"));
-            addPriceHistory(btc, "2024-01-01", new BigDecimal("30000.00"));
+            // Bitcoin (BTC) Quarterly Closing Prices
+            addPriceHistory(btc, "2020-03-31", new BigDecimal("6400.00"));
+            addPriceHistory(btc, "2020-06-30", new BigDecimal("9100.00"));
+            addPriceHistory(btc, "2020-09-30", new BigDecimal("10700.00"));
+            addPriceHistory(btc, "2020-12-31", new BigDecimal("28900.00"));
+            addPriceHistory(btc, "2021-03-31", new BigDecimal("59000.00"));
+            addPriceHistory(btc, "2021-06-30", new BigDecimal("35000.00"));
+            addPriceHistory(btc, "2021-09-30", new BigDecimal("43000.00"));
+            addPriceHistory(btc, "2021-12-31", new BigDecimal("47000.00"));
+            addPriceHistory(btc, "2022-03-31", new BigDecimal("45000.00"));
+            addPriceHistory(btc, "2022-06-30", new BigDecimal("20000.00"));
+            addPriceHistory(btc, "2022-09-30", new BigDecimal("19000.00"));
+            addPriceHistory(btc, "2022-12-31", new BigDecimal("16500.00"));
+            addPriceHistory(btc, "2023-03-31", new BigDecimal("28000.00"));
+            addPriceHistory(btc, "2023-06-30", new BigDecimal("30000.00"));
+            addPriceHistory(btc, "2023-09-30", new BigDecimal("26000.00"));
+            addPriceHistory(btc, "2023-12-31", new BigDecimal("40000.00"));
+            addPriceHistory(btc, "2024-03-31", new BigDecimal("48000.00"));
+            addPriceHistory(btc, "2024-06-30", new BigDecimal("48000.00"));
+            addPriceHistory(btc, "2024-09-30", new BigDecimal("52000.00"));
+            addPriceHistory(btc, "2024-12-31", new BigDecimal("60000.00"));
 
-            addPriceHistory(eth, "2021-01-01", new BigDecimal("730.37"));
-            addPriceHistory(eth, "2022-01-01", new BigDecimal("3769.70"));
-            addPriceHistory(eth, "2023-01-01", new BigDecimal("1197.89"));
-            addPriceHistory(eth, "2024-01-01", new BigDecimal("2000.00"));
+            // Ethereum (ETH) Quarterly Closing Prices
+            addPriceHistory(eth, "2020-03-31", new BigDecimal("110.00"));
+            addPriceHistory(eth, "2020-06-30", new BigDecimal("225.00"));
+            addPriceHistory(eth, "2020-09-30", new BigDecimal("360.00"));
+            addPriceHistory(eth, "2020-12-31", new BigDecimal("730.00"));
+            addPriceHistory(eth, "2021-03-31", new BigDecimal("1800.00"));
+            addPriceHistory(eth, "2021-06-30", new BigDecimal("2100.00"));
+            addPriceHistory(eth, "2021-09-30", new BigDecimal("3000.00"));
+            addPriceHistory(eth, "2021-12-31", new BigDecimal("3700.00"));
+            addPriceHistory(eth, "2022-03-31", new BigDecimal("3400.00"));
+            addPriceHistory(eth, "2022-06-30", new BigDecimal("1000.00"));
+            addPriceHistory(eth, "2022-09-30", new BigDecimal("1400.00"));
+            addPriceHistory(eth, "2022-12-31", new BigDecimal("1100.00"));
+            addPriceHistory(eth, "2023-03-31", new BigDecimal("1800.00"));
+            addPriceHistory(eth, "2023-06-30", new BigDecimal("1900.00"));
+            addPriceHistory(eth, "2023-09-30", new BigDecimal("1600.00"));
+            addPriceHistory(eth, "2023-12-31", new BigDecimal("2200.00"));
+            addPriceHistory(eth, "2024-03-31", new BigDecimal("2500.00"));
+            addPriceHistory(eth, "2024-06-30", new BigDecimal("2800.00"));
+            addPriceHistory(eth, "2024-09-30", new BigDecimal("3000.00"));
+            addPriceHistory(eth, "2024-12-31", new BigDecimal("3500.00"));
 
-            addPriceHistory(sol, "2021-01-01", new BigDecimal("1.84"));
-            addPriceHistory(sol, "2022-01-01", new BigDecimal("178.52"));
-            addPriceHistory(sol, "2023-01-01", new BigDecimal("9.96"));
-            addPriceHistory(sol, "2024-01-01", new BigDecimal("98.00"));
+            // Solana (SOL) Quarterly Closing Prices
+            addPriceHistory(sol, "2020-03-31", new BigDecimal("0.50")); // Solana launched in March 2020
+            addPriceHistory(sol, "2020-06-30", new BigDecimal("0.60"));
+            addPriceHistory(sol, "2020-09-30", new BigDecimal("1.50"));
+            addPriceHistory(sol, "2020-12-31", new BigDecimal("1.80"));
+            addPriceHistory(sol, "2021-03-31", new BigDecimal("19.00"));
+            addPriceHistory(sol, "2021-06-30", new BigDecimal("35.00"));
+            addPriceHistory(sol, "2021-09-30", new BigDecimal("140.00"));
+            addPriceHistory(sol, "2021-12-31", new BigDecimal("170.00"));
+            addPriceHistory(sol, "2022-03-31", new BigDecimal("110.00"));
+            addPriceHistory(sol, "2022-06-30", new BigDecimal("40.00"));
+            addPriceHistory(sol, "2022-09-30", new BigDecimal("35.00"));
+            addPriceHistory(sol, "2022-12-31", new BigDecimal("10.00"));
+            addPriceHistory(sol, "2023-03-31", new BigDecimal("20.00"));
+            addPriceHistory(sol, "2023-06-30", new BigDecimal("25.00"));
+            addPriceHistory(sol, "2023-09-30", new BigDecimal("30.00"));
+            addPriceHistory(sol, "2023-12-31", new BigDecimal("50.00"));
+            addPriceHistory(sol, "2024-03-31", new BigDecimal("70.00"));
+            addPriceHistory(sol, "2024-06-30", new BigDecimal("90.00"));
+            addPriceHistory(sol, "2024-09-30", new BigDecimal("110.00"));
+            addPriceHistory(sol, "2024-12-31", new BigDecimal("130.00"));
 
-            // Add price history for the last year (monthly data)
-            addPriceHistoryForLastYear(btc, new BigDecimal[] {
-                    new BigDecimal("30000.00"),  // Jan 2024
-                    new BigDecimal("28500.00"),  // Dec 2023
-                    new BigDecimal("27000.00"),  // Nov 2023
-                    new BigDecimal("25000.00"),  // Oct 2023
-                    new BigDecimal("24000.00"),  // Sep 2023
-                    new BigDecimal("26000.00"),  // Aug 2023
-                    new BigDecimal("25500.00"),  // Jul 2023
-                    new BigDecimal("24000.00"),  // Jun 2023
-                    new BigDecimal("23000.00"),  // May 2023
-                    new BigDecimal("22000.00"),  // Apr 2023
-                    new BigDecimal("21000.00"),  // Mar 2023
-                    new BigDecimal("20000.00"),  // Feb 2023
-                    new BigDecimal("16547.50")   // Jan 2023
-            });
-
-            addPriceHistoryForLastYear(eth, new BigDecimal[] {
-                    new BigDecimal("2000.00"),   // Jan 2024
-                    new BigDecimal("1900.00"),   // Dec 2023
-                    new BigDecimal("1800.00"),   // Nov 2023
-                    new BigDecimal("1700.00"),   // Oct 2023
-                    new BigDecimal("1600.00"),   // Sep 2023
-                    new BigDecimal("1700.00"),   // Aug 2023
-                    new BigDecimal("1800.00"),   // Jul 2023
-                    new BigDecimal("1750.00"),   // Jun 2023
-                    new BigDecimal("1600.00"),   // May 2023
-                    new BigDecimal("1650.00"),   // Apr 2023
-                    new BigDecimal("1500.00"),   // Mar 2023
-                    new BigDecimal("1400.00"),   // Feb 2023
-                    new BigDecimal("1197.89")    // Jan 2023
-            });
-
-            addPriceHistoryForLastYear(sol, new BigDecimal[] {
-                    new BigDecimal("98.00"),     // Jan 2024
-                    new BigDecimal("90.00"),     // Dec 2023
-                    new BigDecimal("80.00"),     // Nov 2023
-                    new BigDecimal("70.00"),     // Oct 2023
-                    new BigDecimal("60.00"),     // Sep 2023
-                    new BigDecimal("55.00"),     // Aug 2023
-                    new BigDecimal("50.00"),     // Jul 2023
-                    new BigDecimal("45.00"),     // Jun 2023
-                    new BigDecimal("40.00"),     // May 2023
-                    new BigDecimal("35.00"),     // Apr 2023
-                    new BigDecimal("30.00"),     // Mar 2023
-                    new BigDecimal("20.00"),     // Feb 2023
-                    new BigDecimal("9.96")       // Jan 2023
-            });
 
             // Add portfolio entries
             addPortfolioEntry(btc, new BigDecimal("0.5"), new BigDecimal("28500.00"));  // ~$14,250 initial investment
