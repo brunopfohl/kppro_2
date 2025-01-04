@@ -21,11 +21,16 @@
                 <div class="p-4 border-b">
                     <form action="/crypto-assets/search" method="get" class="flex gap-2">
                         <input type="text" name="query" placeholder="Search by name..." 
+                               th:value="${searchQuery}"
                                class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
                             Search
                         </button>
                     </form>
+                    <!-- Add search results message -->
+                    <div th:if="${searchQuery != null}" class="mt-2 text-sm text-gray-600">
+                        Search results for term '<span th:text="${searchQuery}" class="font-semibold"></span>'
+                    </div>
                 </div>
 
                 <div class="p-6">

@@ -16,7 +16,7 @@ public class KpproApplication {
 
     @Autowired
     public KpproApplication(UserService userService, PasswordEncoder passwordEncoder){
-        this.userService =userService;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 

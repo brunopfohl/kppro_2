@@ -76,6 +76,7 @@ public class CryptoAssetController {
 
     @GetMapping("/search")
     public String search(@RequestParam String query, Model model) {
+        model.addAttribute("searchQuery", query);
         model.addAttribute("cryptoAssets", this.cryptoAssetService.searchCryptoAssetsByName(query));
         return "crypto_assets_list";
     }
