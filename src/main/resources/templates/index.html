@@ -26,12 +26,18 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Portfolio Value</h3>
-                <p class="text-3xl font-bold text-indigo-600">$25,420.65</p>
-                <p class="text-sm text-green-600 mt-2">+5.23% (24h)</p>
+                <p class="text-3xl font-bold text-indigo-600" th:text="${'$' + #numbers.formatDecimal(totalValue, 1, 2)}">$25,420.65</p>
+                <p th:class="${change24h >= 0 ? 'text-green-600' : 'text-red-600'} + ' text-sm mt-2'"
+                   th:text="${(change24h >= 0 ? '+' : '') + #numbers.formatDecimal(change24h, 1, 2) + '% (24h)'}">
+                    +5.23% (24h)
+                </p>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Profit/Loss</h3>
-                <p class="text-3xl font-bold text-green-600">+$3,245.80</p>
+                <p th:class="${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'} + ' text-3xl font-bold'"
+                   th:text="${(profitLoss >= 0 ? '+' : '') + '$' + #numbers.formatDecimal(profitLoss, 1, 2)}">
+                    +$3,245.80
+                </p>
                 <p class="text-sm text-gray-500 mt-2">Since inception</p>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6">
@@ -85,15 +91,25 @@
         </div>
     </div>
 
-    <script>
+    <script th:inline="javascript">
+        // Get portfolio history data from Thymeleaf
+        const portfolioHistory = /*[[${portfolioHistory}]]*/ {};
+        
+        // Convert portfolio history to chart data
+        const dates = Object.keys(portfolioHistory).map(date => {
+            const d = new Date(date);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        const values = Object.values(portfolioHistory);
+
         // Portfolio Value Chart
         new Chart(document.getElementById('portfolioChart'), {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                labels: dates,
                 datasets: [{
                     label: 'Portfolio Value (USD)',
-                    data: [20000, 22000, 21500, 23000, 24500, 25420],
+                    data: values,
                     borderColor: 'rgb(79, 70, 229)',
                     tension: 0.1
                 }]
@@ -104,27 +120,48 @@
                     legend: {
                         display: false
                     }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
                 }
             }
         });
 
         // Asset Distribution Chart
+        const distribution = /*[[${assetDistribution}]]*/ {};
         new Chart(document.getElementById('distributionChart'), {
             type: 'doughnut',
             data: {
-                labels: ['BTC', 'ETH', 'SOL', 'Others'],
+                labels: Object.keys(distribution),
                 datasets: [{
-                    data: [45, 30, 15, 10],
+                    data: Object.values(distribution),
                     backgroundColor: [
                         'rgb(59, 130, 246)',
                         'rgb(99, 102, 241)',
                         'rgb(139, 92, 246)',
-                        'rgb(167, 139, 250)'
+                        'rgb(167, 139, 250)',
+                        'rgb(192, 132, 252)'
                     ]
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw.toFixed(2) + '%';
+                            }
+                        }
+                    }
+                }
             }
         });
     </script>
